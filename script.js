@@ -26,10 +26,27 @@ function createGrid(size) {
     square.style.border = "1px solid #ddd";
     square.style.boxSizing = "border-box";
 
-    // Add hover color effect
+    // Mouse hover effect
     square.addEventListener("mouseenter", () => {
       const randomColor = `hsl(${Math.floor(Math.random() * 360)}, 100%, 50%)`;
       square.style.backgroundColor = randomColor;
+    });
+
+    // Touch support
+    square.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      const randomColor = `hsl(${Math.floor(Math.random() * 360)}, 100%, 50%)`;
+      e.target.style.backgroundColor = randomColor;
+    });
+
+    square.addEventListener("touchmove", (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const element = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (element && element.parentElement === container) {
+        const randomColor = `hsl(${Math.floor(Math.random() * 360)}, 100%, 50%)`;
+        element.style.backgroundColor = randomColor;
+      }
     });
 
     container.appendChild(square);
